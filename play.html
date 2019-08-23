@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <script>
+    function computerPlay() {
+      value = Math.floor(Math.random() * 3);
+      if (value == 0) {
+        result = "Rock";
+      } else if (value == 1) {
+        result = "Paper";
+      } else {
+        result = "Scissors";
+      }
+      return result;
+    }
+
+    function playRound(playerSelection, computerSelection) {
+      // player and computer choose same option
+      if (playerSelection == computerSelection) {
+        return "Same";
+      }
+
+      if (playerSelection == "Rock") {
+        if (computerSelection == "Paper") {
+          return "You Lose! Paper beats Rock";
+        } else {
+          return "You Win! Rock beats Scissors";
+        }
+      } else if (playerSelection == "Paper") {
+        if (computerSelection == "Scissors") {
+          return "You Lose! Scissors beats Paper";
+        } else {
+          return "You Win! Paper beats Rock";
+        }
+      } else if (playerSelection == "Scissors") {
+        if (computerSelection == "Rock") {
+          return "You Lose! Rock beats Scissors";
+        } else {
+          return "You Win! Scissors beats paper";
+        }
+      }
+    }
+
+    function game()
+  </script>
+</html>
