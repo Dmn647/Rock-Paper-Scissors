@@ -5,18 +5,10 @@
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
   </div>
-
-  <div id="results">
-  </div>
+  <br />
+  <div id="results"></div>
 
   <script>
-    const buttons = document.querySelectorAll("button");
-    buttons.forEach(button => {
-      button.addEventListener("click", e => {
-        alert(playRound(button.id, computerPlay()));
-      });
-    });
-
     function computerPlay() {
       value = Math.floor(Math.random() * 3);
       if (value == 0) {
@@ -30,10 +22,6 @@
     }
 
     function playRound(playerSelection, computerSelection) {
-      // make playerSelection case insensitive, initialize selections
-      playerSelection = playerSelection.toLowerCase();
-      computerSelection = computerPlay();
-
       // if the player and computer choose the same option
       while (playerSelection == computerSelection) {
         computerSelection = computerPlay();
@@ -69,6 +57,17 @@
     function game() {
       let playerWins = 0;
       let computerWins = 0;
+
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.addEventListener("click", e => {
+          alert(playRound(button.id, computerPlay()));
+        });
+      });
+
+      const results = document.querySelector("#results");
+      results.classList.add("results");
+      results.textContent = `Player: ${playerWins} Computer: ${computerWins}`;
 
       /*
       while (playerWins + computerWins < 5) {
