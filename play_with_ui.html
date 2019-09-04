@@ -26,6 +26,29 @@
     currentComputerScore.textContent = `Computer: ${computerWins}`;
     score.appendChild(currentComputerScore);
 
+    const roundResults = document.querySelector("#results");
+    const currentRoundResults = document.createElement("h3");
+    currentRoundResults.textContent = "Choose a button, first to five wins.";
+    roundResults.appendChild(currentRoundResults);
+
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(button => {
+      button.addEventListener("click", e => {
+        currentRoundResults.textContent = `${playRound(
+          button.id,
+          computerPlay()
+        )}`;
+        roundResults.appendChild(currentRoundResults);
+
+        currentPlayerScore.textContent = `Player: ${playerWins}`;
+        score.appendChild(currentPlayerScore);
+        currentComputerScore.textContent = `Computer: ${computerWins}`;
+        score.appendChild(currentComputerScore);
+
+        game();
+      });
+    });
+
     function computerPlay() {
       value = Math.floor(Math.random() * 3);
       if (value == 0) {
@@ -39,65 +62,44 @@
     }
 
     function playRound(playerSelection, computerSelection) {
+      let roundResult = null;
+
       // if the player and computer choose the same option
-      while (playerSelection == computerSelection) {
-        computerSelection = computerPlay();
+      if (playerSelection == computerSelection) {
+        roundResult = "Draw";
+      } else if (playerSelection == "rock" && computerSelection == "scissors") {
+        playerWins++;
+        roundResult =
+          "You win, " + playerSelection + " beats " + computerSelection;
+      } else if (playerSelection == "paper" && computerSelection == "rock") {
+        playerWins++;
+        roundResult =
+          "You win, " + playerSelection + " beats " + computerSelection;
+      } else if (
+        playerSelection == "scissors" &&
+        computerSelection == "paper"
+      ) {
+        playerWins++;
+        roundResult =
+          "You win, " + playerSelection + " beats " + computerSelection;
+      } else {
+        computerWins++;
+        roundResult =
+          "You lose, " + computerSelection + " beats " + playerSelection;
       }
 
-      if (playerSelection == "rock") {
-        if (computerSelection == "paper") {
-          console.log("You Lose!");
-          return 0;
-        } else {
-          console.log("You win!");
-          return 1;
-        }
-      } else if (playerSelection == "paper") {
-        if (computerSelection == "scissors") {
-          console.log("You Lose!");
-          return 0;
-        } else {
-          console.log("You win!");
-          return 1;
-        }
-      } else if (playerSelection == "scissors") {
-        if (computerSelection == "rock") {
-          console.log("You Lose!");
-          return 0;
-        } else {
-          console.log("You win!");
-          return 1;
-        }
-      }
+      return roundResult;
     }
 
     function game() {
-      const buttons = document.querySelectorAll("button");
-      buttons.forEach(button => {
-        button.addEventListener("click", e => {
-          alert(playRound(button.id, computerPlay()));
-        });
-      });
-
-      const results = document.querySelector("#results");
-      results.classList.add("results");
-      results.textContent = `Player: ${playerWins} Computer: ${computerWins}`;
-
-      /*
-      while (playerWins + computerWins < 5) {
-        let playerChoice = prompt("Choose rock, paper, or scissors!");
-        if (playRound(playerChoice, computerPlay)) {
-          playerWins++;
-        } else {
-          computerWins++;
-        }
-      }
-      */
-
-      if (playerWins > computerWins) {
-        console.log("Player Wins");
-      } else {
-        console.log("Computer Wins");
+      if (playerWins == 5) {
+        alert("You beat the computer!");
+        playerWins = 0;
+        computerWins = 0;
+      } else if (computerWins == 5) {
+        alert("You lost against the computer..");
+        playerWins = 0;
+        computerWins = 0;
       }
     }
   </script>
