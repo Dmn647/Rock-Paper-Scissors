@@ -6,9 +6,26 @@
     <button id="scissors">Scissors</button>
   </div>
   <br />
+  <div id="score"></div>
   <div id="results"></div>
 
   <script>
+    let playerSelection = null;
+    let computerSelection = null;
+    let playerWins = 0;
+    let computerWins = 0;
+
+    // create DOM for scorekeeping, update player and computer scores
+    const score = document.querySelector("#score");
+
+    const currentPlayerScore = document.createElement("h2");
+    currentPlayerScore.textContent = `Player: ${playerWins}`;
+    score.appendChild(currentPlayerScore);
+
+    const currentComputerScore = document.createElement("h2");
+    currentComputerScore.textContent = `Computer: ${computerWins}`;
+    score.appendChild(currentComputerScore);
+
     function computerPlay() {
       value = Math.floor(Math.random() * 3);
       if (value == 0) {
@@ -55,9 +72,6 @@
     }
 
     function game() {
-      let playerWins = 0;
-      let computerWins = 0;
-
       const buttons = document.querySelectorAll("button");
       buttons.forEach(button => {
         button.addEventListener("click", e => {
